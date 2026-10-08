@@ -18,19 +18,37 @@ import {
 
 fetchProductCatalog()
     .then(products => {
-        return Promise.all(products.map(product => {
-            return fetchProductReviews(product.id)
-                .then(reviews => {
-                    console.log("Product Catalog:", products);
+        console.log("Product Catalog:", products);
+        return Promise.all(
+            products.map(product =>
+                fetchProductReviews(product.id)
+                    .then(reviews => ({ product, reviews }))
+            )
+        );
+    })
+    .then(productsWithReviews => {
+        productsWithReviews.forEach(({ product, reviews }) => {
+            console.log(`Reviews for ${product.name}:`, reviews);
+        }); 
+        return fetchSalesReport();
+        productsWithReviews.forEach(({ product, reviews }) => {
+            console.log(`Reviews for ${product.name}:`, reviews);
+        });
+        return fetchSalesReport();
+    })
+    .then(salesReport => {
+        console.log("Sales Report:", salesReport);
+    })
+    .catch(error => {
+        console.error("Error occurred:", error.message);
+    })
+    .finally(() => {
+        console.log("All API calls have been attempted.");
+    });
 
-                }
-                )
-        }
-        )
 
-        )
-    }
-    )
+                //        console.log("Product Catalog:", products);
+                //    console.log("Product Reviews:", reviews);
 // Part 3: Build the Main Application Logic
 // Create an index.ts file to contain the main logic of your application.
 // Write a Function to Handle API Calls and Display Data:
