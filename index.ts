@@ -1,11 +1,5 @@
 
-// Use fetchProductCatalog() to fetch product details and display them.
 // For each product, fetch the reviews using fetchProductReviews(productId).
-// After fetching products and reviews, retrieve the sales report using fetchSalesReport().
-// Implement Error Handling Using Promises:
-// Use .catch() to handle any errors from fetchProductCatalog(), fetchProductReviews(), and fetchSalesReport().
-// Display error messages to the console if any of the calls fail.
-// Use .finally() to log a message indicating that all API calls have been attempted.
 
 // Part 3: Build the Main Application Logic
 // Create an index.ts file to contain the main logic of your application.
@@ -15,12 +9,14 @@ import {
     fetchProductReviews,
     fetchSalesReport
 } from './apiSimulator';
-
+// Use fetchProductCatalog() to fetch product details and display them.
 fetchProductCatalog()
     .then(products => {
         console.log("Product Catalog:", products);
+        // Implement Error Handling Using Promises:
         return Promise.all(
             products.map(product =>
+                // For each product, fetch the reviews using fetchProductReviews(productId).
                 fetchProductReviews(product.id)
                     .then(reviews => ({ product, reviews }))
             )
@@ -31,18 +27,19 @@ fetchProductCatalog()
             console.log(`Reviews for ${product.name}:`, reviews);
         }); 
         return fetchSalesReport();
-        productsWithReviews.forEach(({ product, reviews }) => {
-            console.log(`Reviews for ${product.name}:`, reviews);
-        });
-        return fetchSalesReport();
+
     })
+    // After fetching products and reviews, retrieve the sales report using fetchSalesReport().
     .then(salesReport => {
         console.log("Sales Report:", salesReport);
     })
+    // Use .catch() to handle any errors from fetchProductCatalog(), fetchProductReviews(), and fetchSalesReport().
     .catch(error => {
         console.error("Error occurred:", error.message);
     })
+    // Use .finally() to log a message indicating that all API calls have been attempted
     .finally(() => {
+    // Display error messages to the console if any of the calls fail.
         console.log("All API calls have been attempted.");
     });
 
@@ -52,10 +49,5 @@ fetchProductCatalog()
 // Part 3: Build the Main Application Logic
 // Create an index.ts file to contain the main logic of your application.
 // Write a Function to Handle API Calls and Display Data:
-// Use fetchProductCatalog() to fetch product details and display them.
-// For each product, fetch the reviews using fetchProductReviews(productId).
-// After fetching products and reviews, retrieve the sales report using fetchSalesReport().
 // Implement Error Handling Using Promises:
-// Use .catch() to handle any errors from fetchProductCatalog(), fetchProductReviews(), and fetchSalesReport().
 // Display error messages to the console if any of the calls fail.
-// Use .finally() to log a message indicating that all API calls have been attempted
