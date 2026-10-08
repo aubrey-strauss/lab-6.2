@@ -5,7 +5,7 @@
 // This file will contain functions that simulate API requests using Promises.
 // Each function should return a Promise that resolves with mock data after a delay, or rejects with an error message.
 
-import customErrors = require("./customErrors");
+import { NetworkError, DataError } from "./customErrors";
 
 
 // Part 2: Implement API Simulation Functions
@@ -27,7 +27,7 @@ export const fetchProductCatalog = (): Promise<Product[]> => {
             { id: 2, name: "Headphones", price: 200 },
         ]);
         } else {
-        reject(new customErrors.NetworkError("Failed to fetch product catalog"));
+        reject(new NetworkError("Failed to fetch product catalog"));
         }
     }, 1000);
     });
@@ -46,7 +46,7 @@ export const fetchProductReviews = (productId: number): Promise<{ rating: number
             ]);
         } else {
             // Reject the Promise randomly with an error message, e.g., "Failed to fetch reviews for product ID ${productId}".
-            reject(new customErrors.NetworkError(`Failed to fetch reviews for product ID ${productId}`));
+            reject(new DataError(`Failed to fetch reviews for product ID ${productId}`));
         }
     }, 1500);
     });
@@ -64,7 +64,7 @@ export const fetchSalesReport = (): Promise<{ totalSales: number; unitsSold: num
             });
         } else {
             // Reject randomly with an error message, e.g., "Failed to fetch sales report".
-            reject(new customErrors.NetworkError("Failed to fetch sales report"));
+            reject(new DataError("Failed to fetch sales report"));
         }
     }, 1000);
     });
