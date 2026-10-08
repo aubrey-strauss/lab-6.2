@@ -9,6 +9,12 @@ import {
     fetchProductReviews,
     fetchSalesReport
 } from './apiSimulator';
+
+import {
+    NetworkError,
+    DataError
+} from './customErrors';
+
 // Use fetchProductCatalog() to fetch product details and display them.
 fetchProductCatalog()
     .then(products => {
@@ -35,7 +41,13 @@ fetchProductCatalog()
     })
     // Use .catch() to handle any errors from fetchProductCatalog(), fetchProductReviews(), and fetchSalesReport().
     .catch(error => {
-        console.error("Error occurred:", error.message);
+        if (error instanceof NetworkError) {
+            console.error("Network Error occurred:", error.message);
+        } else if (error instanceof DataError) {
+            console.error("Data Error occurred:", error.message);
+        } else {
+            console.error("Unexpected Error occurred:", error.message);
+        }
     })
     // Use .finally() to log a message indicating that all API calls have been attempted
     .finally(() => {
